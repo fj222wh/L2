@@ -1,5 +1,5 @@
 /**
- * Tests the product class.
+ * Tests the Product class.
  */
 
 import { Product } from "../src/Product.js";
@@ -15,4 +15,3 @@ describe('Product', () => {
                 });
             });
         });
-    
