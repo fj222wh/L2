@@ -6,13 +6,13 @@ import { Invoice } from "./Invoice.js"
 import { Product } from "./Product.js"
 
 export class Order {
-    orderNr
-    #status // Går det att använda enum // Status paid?????? Pending?
+    #orderNr
+    #status // Går det att använda enum // Status paid?????? Pending? ⚠️
     #productsInCart
 
     /**
      * The order number of the order
-     * @param {Number} orderNr 
+     * @param {Number} orderNr The order number
      */
     constructor(orderNr) {
         this.#productsInCart = []
@@ -27,7 +27,7 @@ export class Order {
         if(orderNr < 0 || !Number.isInteger(orderNr)) {
             throw new Error('The ordernumber is not a valid number. The order number has to be a positive integer')
         }
-        this.orderNr = orderNr
+        this.#orderNr = orderNr
     }
 
     /**
@@ -36,22 +36,22 @@ export class Order {
      * @returns {Number} - Order number
      */
     getOrderNumber() {
-        return this.orderNr
+        return this.#orderNr
     }
 
     /**
      * Adds a product to the cart
      *
-     * @param {Product} prodcuct - The product
+     * @param {Product} product - The product
      * @param {Number} quantity - Number of producs
      */
-    addProduct(prodcuct, quantity) {
-        // TODO: 
-        // KONTROllera att det är products
+    addProduct(product, quantity) {
+        if(!(product instanceof Product)) {
+            throw TypeError('The product has to be an instance of the class Product')
+        }
 
-        // Lägg till så många produkter det är av varje sort??? Eller borde man bara ha kvar antal +  produkten?
         for(let i = 0; i < quantity; i++) {
-            this.#productsInCart.push(prodcuct)
+            this.#productsInCart.push(product)
         }
     }
 
@@ -83,8 +83,8 @@ export class Order {
      * Creates the invoice
      * @returns {File} Returns a file with the invoixe
      */
-    createInvoice() {
-        const invoice = new Invoice(this)
+    createInvoice(name) {
+        const invoice = new Invoice(this, name)
         return invoice.createInvoice()
         // TODO: Implement code here
         // Hantera logik för att skapa och rendera en faktura, returnera en fil 

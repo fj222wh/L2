@@ -34,7 +34,7 @@ export class Store {
      */
     constructor(name) {
         this.setName(name)
-        this.#productCatalog = new ProductCatalog() // OSÄKER? SKA DEN LIGGA HÄR ELLER SKA DEN KUNNA SKAPAS UTANFÖR????
+        this.#productCatalog = new ProductCatalog() // ⚠️ OSÄKER? SKA DEN LIGGA HÄR ELLER SKA DEN KUNNA SKAPAS UTANFÖR???? ⚠️
         this.#orders = []
     }
 
@@ -88,8 +88,10 @@ export class Store {
     /**
      * Cancels the order and removes it from the array of all orders
      */
-    cancelOrder() {
+    cancelOrder(orderId) {
         // TODO: Cancel an order, delete it!!! 
+        // Find the order
+
     }
 
     /**
