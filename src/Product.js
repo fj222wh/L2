@@ -58,4 +58,8 @@ export class Product {
     getID() {
         return this.#id
     }
+
+    toString() {
+        return `${this.#name}, ${this.#price}, ${this.#description}, ${this.#id}`
+    }
 }
