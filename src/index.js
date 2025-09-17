@@ -18,6 +18,8 @@ try {
     console.log(order.displayProductsInCart())
     console.log(order.calculateTotalPrice())
 
+    console.log(store.activeOrders())
+
 
 
     // const tShirt = new Product('T-shirt', 20, 'T-shirt blue')

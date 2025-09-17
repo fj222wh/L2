@@ -2,12 +2,11 @@
  * An order
  */
 
-import { Invoice } from "./Invoice.js"
 import { Product } from "./Product.js"
 
 export class Order {
     #orderNr
-    #status // Går det att använda enum // Status paid?????? Pending? ⚠️
+    #isActive = true // Går det att använda enum // Status paid?????? Pending? ⚠️
     #productsInCart
 
     /**
@@ -28,6 +27,14 @@ export class Order {
             throw new Error('The ordernumber is not a valid number. The order number has to be a positive integer')
         }
         this.#orderNr = orderNr
+    }
+
+    /**
+     * Returns the status of the order
+     * @returns {boolean} The status of the order
+     */
+    isActiveOrder() {
+        return this.#isActive
     }
 
     /**
@@ -84,6 +91,7 @@ export class Order {
      * @returns {File} Returns a file with the invoixe
      */
     createInvoice(name) {
+        this.setStatus('inactive')
         const invoice = new Invoice(this, name)
         return invoice.createInvoice()
         // TODO: Implement code here

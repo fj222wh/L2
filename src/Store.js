@@ -95,6 +95,19 @@ export class Store {
     }
 
     /**
+     * Sorts and returns only the active orders
+     *
+     * @returns {Array} Returns an array with the active orders
+     */
+    activeOrders() {
+        const activeOrders = [...this.displayAllOrders()].filter(order => {
+            return order.isActiveOrder() === true
+        })
+
+        return activeOrders
+    }
+
+    /**
      * View all orders
      *
      * @returns {Array} Returns all orders
