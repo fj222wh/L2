@@ -37,8 +37,11 @@ export class ProductCatalog {
      * @returns {Product}
      */
     findProduct(productId) {
-        // TODO: Search for a specific id in the catalog array.
-        // Return that product
+        const product = this.#catalog.find((product) => {
+            return product.getID() === productId
+        })
+
+        return product
     }
 
     /**
@@ -48,6 +51,7 @@ export class ProductCatalog {
      */
     removeProduct(productId) {
         // TODO: Be able to remove the product with a certain ID from the catalog
+        // Remove from DB
 
     }
 

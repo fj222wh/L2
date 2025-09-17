@@ -18,25 +18,21 @@ try {
     console.log(order.displayProductsInCart())
     console.log(order.calculateTotalPrice())
 
-    console.log(store.activeOrders())
+
+    const order2 = store.addOrder()
+    const computer = new Product('computer', 234324, 'ji')
+    order2.addProduct(computer)
+
+    console.log(order.getOrderNumber())
+    console.log(`The total sum of order 1: ${order.calculateTotalPrice()}`)
+
+    console.log(order2.getOrderNumber())
+    console.log(`The total sum of order 2: ${order2.calculateTotalPrice()}`)
 
 
+    // console.log(store.activeOrders())
+    
 
-    // const tShirt = new Product('T-shirt', 20, 'T-shirt blue')
-    // order.addProduct(tShirt, 4)
-    // console.log(order.displayProductsInCart())
-    // console.log(order.calculateTotalPrice())
-
-    // const order2 = store.addOrder()
-
-
-    // console.log('Here are all orders')
-
-    // const allOrders = store.displayAllOrders()
-    // console.log(allOrders.length)
-    // store.displayAllOrders().forEach(order => {
-    //     console.log(`${order.getOrderNumber()}, ${order.calculateTotalPrice()}`)
-    // })
 
 
 
