@@ -1,11 +1,12 @@
 /**
- * A products
+ * A product
  */
 
 export class Product {
     #name
     #price
     #description
+    #id
 
     constructor(name, price, description) {
         this.setName(name)
@@ -14,7 +15,7 @@ export class Product {
     }
 
     setName(name) {
-        if(name.length < 1) {
+        if(name.length <= 0) {
             throw new Error('The name of the product cannot be empty')
         }
         
@@ -36,6 +37,12 @@ export class Product {
         this.#description = description
     }
 
+    setID(id) {
+        if(!Number.isFinite(id)) {
+            throw new TypeError('The ID has to be a number')
+        }
+    }
+
     getPrice() {
         return this.#price
     }
@@ -46,5 +53,9 @@ export class Product {
 
     getDescription() {
         return this.#description
+    }
+
+    getID() {
+        return this.#id
     }
 }

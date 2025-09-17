@@ -2,7 +2,7 @@
  * The store.
  */
 
-export class Customer {
-    
+export class Store {
+
 }
 
