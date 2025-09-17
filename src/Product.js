@@ -14,15 +14,25 @@ export class Product {
     }
 
     setName(name) {
+        if(name.length < 1) {
+            throw new Error('The name of the product cannot be empty')
+        }
         
         this.#name = name
     }
 
     setPrice(price) {
+        if(price < 1) {
+            throw new Error('The price cannot be null')
+        }
+
         this.#price = price
     }
 
     setDescription(description) {
+        if(description.length < 1) {
+            throw new Error('The description of the product cannot be empty')
+        }
         this.#description = description
     }
 
