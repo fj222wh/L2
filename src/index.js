@@ -22,9 +22,9 @@ try {
 
     console.log('Here are all orders')
 
-    const allOrders = store.viewAllOrders()
+    const allOrders = store.displayAllOrders()
     console.log(allOrders.length)
-    store.viewAllOrders().forEach(order => {
+    store.displayAllOrders().forEach(order => {
         console.log(`${order.getOrderNumber()}, ${order.calculateTotalPrice()}`)
     })
 

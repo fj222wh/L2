@@ -86,6 +86,8 @@ export class Product {
         if(!Number.isFinite(id)) {
             throw new TypeError('The ID has to be a number')
         }
+
+        this.#id = id
     }
 
     /**

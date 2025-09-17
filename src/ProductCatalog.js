@@ -6,6 +6,7 @@ import { Product } from "./Product.js"
 
 export class ProductCatalog {
     #catalog
+    #productIdCounter = 1
     
     constructor() {
         this.#catalog = []
@@ -18,10 +19,22 @@ export class ProductCatalog {
      */
     addProduct(product) {
         // TODO: Add an ID to the product. Fix to be able to add a unique id for each product? Should it be in the Products or should we give the ID here? Check if it's a Product, else return.
+        // Should the ProductCatalog create the products in the catalog? Not sure!
 
-        const id = 3
-        product.setID(id)
+        product.setID(this.#productIdCounter)
+        this.#productIdCounter++
         this.#catalog.push(product)
+    }
+
+    /**
+     * Find a product in the catalog
+     *
+     * @param {Number} productId - The product id
+     * @returns {Product}
+     */
+    findProduct(productId) {
+        // TODO: Search for a specific id in the catalog array.
+        // Return that product
     }
 
     /**
@@ -29,7 +42,7 @@ export class ProductCatalog {
      *
      * @param {*} id - The id for the product
      */
-    removeProduct(id) {
+    removeProduct(productId) {
         // TODO: Be able to remove the product with a certain ID from the catalog
 
     }
