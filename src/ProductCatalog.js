@@ -2,7 +2,7 @@
  * The Product catalouge which includes all the store's products.
  */
 
-import { Product } from "./Product"
+import { Product } from "./Product.js"
 
 export class ProductCatalog {
     #catalog
