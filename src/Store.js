@@ -9,6 +9,7 @@ export class Store {
     #name
     #productCatalog
     #orders
+    #orderNumberCounter = 0
     
 
     constructor(name) {
@@ -33,9 +34,15 @@ export class Store {
         this.#productCatalog.addProduct(product)
     }
 
-    addOrder(order) {
+    addOrder() {
+        // Should the Store create the Order here???? Or should it be loose and only add it to the array?
+        this.#orderNumberCounter++
+        const order = new Order(this.#orderNumberCounter)
+
         // Controll that we only take instances of Order
         this.#orders.push(order)
+
+        return order
     }
 
     cancelOrder() {
