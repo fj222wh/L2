@@ -5,7 +5,6 @@
 import { Product } from "../src/Product.js";
 
 describe('Product', () => {
-    describe('Constructor and Getters', () => {
         test('should create a Product with valid parameters', () => {
             const product = new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil');
             
@@ -37,5 +36,4 @@ describe('Product', () => {
                         new Product('', 0, '');
                     }).toThrow();
                 });
-            });
         });

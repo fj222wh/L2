@@ -44,8 +44,8 @@ export class Store {
      * @param {String} name - name
      */
     setName(name) {
-        if(name.length <= 0) {
-            throw new Error('The name cannot be empty')
+        if(typeof name !== 'string' || name.length <= 0) {
+            throw new Error('The name has to be a string and it cannot be empty')
         }
 
         this.#name = name
