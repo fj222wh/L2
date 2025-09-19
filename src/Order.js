@@ -7,7 +7,7 @@ import { Invoice } from "./Invoice.js"
 
 export class Order {
     #orderNr
-    #isActive = true // Går det att använda enum // Status paid?????? Pending? ⚠️
+    #isActive = true
     #productsInCart
 
     /**
@@ -95,18 +95,5 @@ export class Order {
         this.#isActive = false
         const invoice = new Invoice(this, name, email, currecny)
         return invoice.createInvoice()
-        // TODO: Implement code here
-        // Hantera logik för att skapa och rendera en faktura, returnera en fil 
-        // Skicka med data som behövs
-        /**
-         * Namn
-         * Telefonnummer
-         * Email
-         * Produkter
-         * Rendera allt
-         */
     }
-
-
-    
 }

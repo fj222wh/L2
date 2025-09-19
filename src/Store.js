@@ -74,7 +74,7 @@ export class Store {
      *
      * @returns {Order} The order that has been created
      */
-    addOrder() {
+    createOrder() {
         // Should the Store create the Order here???? Or should it be loose and only add it to the array?
         this.#orderNumberCounter++
         const order = new Order(this.#orderNumberCounter)
@@ -89,6 +89,7 @@ export class Store {
      * Cancels the order and removes it from the array of all orders
      */
     cancelOrder(orderId) {
+
         // TODO: Cancel an order, delete it!!! 
         // Find the order
 

@@ -9,7 +9,7 @@ import { ProductCatalog } from "./ProductCatalog.js"
 
 try {
     const store = new Store('Tienda')
-    const order = store.addOrder()
+    const order = store.createOrder()
     const pizza = new Product('pizza', 340, 'best pizza')
     const tshirt = new Product('tShirt', 23, 'tej')
     order.addProduct(tshirt, 1)
@@ -19,7 +19,7 @@ try {
     console.log(order.calculateTotalPrice())
 
 
-    const order2 = store.addOrder()
+    const order2 = store.createOrder()
     const computer = new Product('computer', 3, 'ji')
     order2.addProduct(computer, 1)  // Missing quantity parameter!
 
