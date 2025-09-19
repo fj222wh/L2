@@ -20,14 +20,19 @@ try {
 
 
     const order2 = store.addOrder()
-    const computer = new Product('computer', 234324, 'ji')
-    order2.addProduct(computer)
+    const computer = new Product('computer', 3, 'ji')
+    order2.addProduct(computer, 1)  // Missing quantity parameter!
 
+    const food = new Product('Hamburger', 2, 'j3to')
+    order2.addProduct(food)
     console.log(order.getOrderNumber())
     console.log(`The total sum of order 1: ${order.calculateTotalPrice()}`)
 
     console.log(order2.getOrderNumber())
     console.log(`The total sum of order 2: ${order2.calculateTotalPrice()}`)
+    
+    const invoiceDoc = order2.createInvoice('Filipa', '2234@gmail.com', 'SEK')
+    console.log(invoiceDoc)
 
 
     // console.log(store.activeOrders())

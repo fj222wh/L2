@@ -3,6 +3,7 @@
  */
 
 import { Product } from "./Product.js"
+import { Invoice } from "./Invoice.js"
 
 export class Order {
     #orderNr
@@ -90,9 +91,9 @@ export class Order {
      * Creates the invoice
      * @returns {File} Returns a file with the invoixe
      */
-    createInvoice(name) {
-        this.setStatus('inactive')
-        const invoice = new Invoice(this, name)
+    createInvoice(name, email, currecny) {
+        this.#isActive = false
+        const invoice = new Invoice(this, name, email, currecny)
         return invoice.createInvoice()
         // TODO: Implement code here
         // Hantera logik för att skapa och rendera en faktura, returnera en fil 

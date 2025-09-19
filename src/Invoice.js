@@ -6,6 +6,10 @@ import { Order } from "./Order.js"
 
 export class Invoice {
     /**
+     * The currency
+     */
+    #currency
+    /**
      * @type {Order} The order to create an invoice from
      */
     #order
@@ -20,16 +24,41 @@ export class Invoice {
      */
     #date
 
+    /**
+     * @type {String} The email
+     */
+    #email
 
     /**
      * The constructor
      *
      * @param {Order} order The order to create an invoice from
      */
-    constructor(order, name) {
+    constructor(order, name, email, currency) {
         this.setOrder(order)
         this.setName(name)
+        this.setEmail(email)
+        this.setCurrency(currency)
         this.#date = new Date().toLocaleString("sv-SE", {timeZone: "Europe/Stockholm"})
+    }
+
+    setCurrency(currency) {
+        if(currency.length <= 0) {
+            throw new Error('The currecny cannot be empty')
+        }
+        this.#currency = currency
+    }
+
+    /**
+     * Sets the email
+     * @param {String} email 
+     */
+    setEmail(email) {
+        if(email.length <= 0) {
+            throw new Error('The email cannot be empty')
+        }
+
+        this.#email = email
     }
 
 
@@ -54,23 +83,46 @@ export class Invoice {
         this.#customerName = name
     }
 
-
     /**
-     * Creates an invoice
+     * Creates the invoice of an order
+     *
+     * @returns {HTML} Returns a document in HTML
      */
     createInvoice() {
-        console.log('THIS IS THE INVOICE')
-        console.log('Date: ' + this.#date)
-        console.log('Name: ' + this.#customerName)
-
-        this.#order.displayProductsInCart().forEach(element => {
-            console.log(element.toString())
-        })
-
+        const htmlDoc = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Invoice ${this.#order.getOrderNumber()} - ${this.#date} </title>
+        </head>
+        <body>
+            <h1>Invoice</h1>
+            <p><strong>Customer:</strong> ${this.#customerName}</p>
+            <p><strong>Email:</strong> ${this.#email}</p>
+            <p><strong>Order Number:</strong> ${this.#order.getOrderNumber()}</p>
+            <p><strong>Date:</strong> ${this.#date}</p>
+            
+            <h2>Products:</h2>
+            ${this.#printProductsHtml()}
+            
+            <h3>Total Price: ${this.#order.calculateTotalPrice()} ${this.#currency}</h3>
+            
+        </body>
+        </html>
+        `
+        return htmlDoc
     }
 
-    #createDoc() {
+    #printProductsHtml() {
+        let html = ''
+        const productsInCart = this.#order.displayProductsInCart()  // Missing parentheses!
+        productsInCart.forEach(product => {
+            html+= `<p class="product"> ${product.getName()}</p>\n`
+        })
 
+        return html
     }
     
 }
