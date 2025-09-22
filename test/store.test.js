@@ -22,4 +22,6 @@ describe('Store', () => {
         expect(() => new Store(Infinity)).toThrow('The name has to be a string and it cannot be empty');
         expect(() => new Store(null)).toThrow('The name has to be a string and it cannot be empty');
     })
+
+    
 })

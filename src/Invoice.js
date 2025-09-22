@@ -75,6 +75,10 @@ export class Invoice {
         this.#order = order
     }
 
+    /**
+     * Sets the name
+     * @param {String} name - name
+     */
     setName(name) {
         if(name.length <= 0) {
             throw new Error('The name cannot be empty')
@@ -119,7 +123,7 @@ export class Invoice {
         let html = ''
         const productsInCart = this.#order.displayProductsInCart()  // Missing parentheses!
         productsInCart.forEach(product => {
-            html+= `<p class="product"> ${product.getName()}</p>\n`
+            html+= `<p class="product"> ${product.product.getName()}</p>\n`
         })
 
         return html
