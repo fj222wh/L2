@@ -71,15 +71,15 @@ export class Order {
         this.#orderItemID++;
         this.#productsInCart.push(orderItem);
     } else {
-        const productInCart = this.findProductById(product.getID())  // Fixed: pass product.getID()
+        const productInCart = this.findProductById(product.getID())
         productInCart.quantity+= quantity
     }
   }
 
   /**
-   * Find a product within the ord
+   * Find a product in the order based on the id
    *
-   * @param {Product} product - The product we are looking for
+   * @param {Number} productID - The product's id
    * @returns {Product} Returns a product
    */
   findProductById(productID) {
@@ -87,6 +87,16 @@ export class Order {
       (orderItem) => orderItem.productID === productID
     );
     return result
+  }
+
+  /**
+   * Remove a product from the order based on id
+   * @param {Number} productID - The product's id
+   */
+  removeProductById(productID, quanity) {
+    // TO DO: Check if the number we want to remove <= 0, ta bort hela elementet
+    //
+
   }
 
 
