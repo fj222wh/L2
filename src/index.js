@@ -23,11 +23,18 @@ try {
 
 
 
-    order.addProduct(salad)
-    console.log(order.findProductById(salad.getID()))
+    // // FIND BY ID
+    // order.addProduct(salad)
+    // console.log(order.findProductById(salad.getID()))
 
-    console.log(order.displayProductsInCart())
-    console.log(order.calculateTotalPrice())
+    // console.log(order.displayProductsInCart())
+    // console.log(order.calculateTotalPrice())
+
+    // console.log(store.displayAllOrders())
+    // const orderId = order.getOrderNumber()
+    // console.log(orderId)
+    // store.deleteOrder(orderId)
+    //     console.log(store.displayAllOrders())
 
 
 
