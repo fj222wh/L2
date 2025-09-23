@@ -34,7 +34,7 @@ export class Store {
      */
     constructor(name) {
         this.setName(name)
-        this.#productCatalog = new ProductCatalog() // ⚠️ OSÄKER? SKA DEN LIGGA HÄR ELLER SKA DEN KUNNA SKAPAS UTANFÖR???? ⚠️
+        this.#productCatalog = new ProductCatalog()
         this.#orders = []
     }
 
@@ -52,11 +52,20 @@ export class Store {
     }
 
     /**
+     * Returns the instance of the product Catalog
+     *
+     * @returns {ProductCatalog} Returns the product Catalog
+     */
+    getProductCatalog() {
+        return this.#productCatalog
+    }
+
+    /**
      * Displays all the products in the catalog
      *
      * @returns {Array} Returns an array with all products
      */
-    displayProducts() {
+    displayProductCatalog() {
         return this.#productCatalog.displayAllProducts()
     }
 
@@ -86,9 +95,19 @@ export class Store {
     }
 
     /**
+     * Find an order
+     *
+     * @param {Number} orderId - The order id
+     */
+    findOrder(orderId) {
+        this.displayAllOrders
+
+    }
+
+    /**
      * Cancels the order and removes it from the array of all orders
      */
-    cancelOrder(orderId) {
+    deleteOrder(orderId) {
 
         // TODO: Cancel an order, delete it!!! 
         // Find the order

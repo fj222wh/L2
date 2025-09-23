@@ -9,6 +9,7 @@ import { ProductCatalog } from "./ProductCatalog.js"
 
 try {
     const store = new Store('Tienda')
+    const catalog = store.getProductCatalog()
     const order = store.createOrder()
     const pizza = new Product('pizza', 1, 'best pizza')
     const tshirt = new Product('tShirt', 1, 'tej')
@@ -20,11 +21,15 @@ try {
     const salad = new Product('salad', 20, 'salad')
     store.addProductToCatalog(salad)
 
+
+
     order.addProduct(salad)
     console.log(order.findProductById(salad.getID()))
 
     console.log(order.displayProductsInCart())
     console.log(order.calculateTotalPrice())
+
+
 
 
     // const order2 = store.createOrder()

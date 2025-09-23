@@ -13,3 +13,7 @@ T.ex. visste jag inte får prodctcatalog även skapa produkter eller kan de läg
 
         // TODO: Add an ID to the product. Fix to be able to add a unique id for each product? Should it be in the Products or should we give the ID here? Check if it's a Product, else return.
         // Should the ProductCatalog create the products in the catalog? Not sure!
+
+![name](/documentation/img/1.png)
+I changed the name to display productCatalog instead to make it more understandable in the store class
+
