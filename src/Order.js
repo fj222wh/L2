@@ -6,17 +6,32 @@ import { Product } from "./Product.js";
 import { Invoice } from "./Invoice.js";
 
 export class Order {
+  /**
+   * @type {Number} The order number
+   */
   #orderNr;
+
+  /**
+   * @type {boolean} The status of the order, if it's active
+   */
   #isActive = true;
-  #productsInCart;
-  #orderItemID = 1;
+
+  /**
+   * @type {Array} Aöö products in the cart
+   */
+  #orderItemsInCart;
+
+  /**
+   * @type {Number} The id of the order item in the cart
+   */
+  #orderItemID = 0;
 
   /**
    * The order number of the order
    * @param {Number} orderNr The order number
    */
   constructor(orderNr) {
-    this.#productsInCart = [];
+    this.#orderItemsInCart = [];
     this.setOrderNumber(orderNr);
   }
 
@@ -61,17 +76,18 @@ export class Order {
       throw TypeError("The product has to be an instance of the class Product");
     }
 
-    if(!this.findProductById(product.getID())) {
+    if(!this.findOrderItem(product.getID())) {
+        this.#orderItemID++
+
         const orderItem = {
         product: product,
-        productID: product.getID(),
+        productId: product.getID(),
         orderItemID: this.#orderItemID,
         quantity: quantity,
         };
-        this.#orderItemID++;
-        this.#productsInCart.push(orderItem);
+        this.#orderItemsInCart.push(orderItem);
     } else {
-        const productInCart = this.findProductById(product.getID())
+        const productInCart = this.findOrderItem(product.getID())
         productInCart.quantity+= quantity
     }
   }
@@ -79,24 +95,66 @@ export class Order {
   /**
    * Find a product in the order based on the id
    *
-   * @param {Number} productID - The product's id
+   * @param {Number} productId - The product's id
    * @returns {Product} Returns a product
    */
-  findProductById(productID) {
-    const result = this.#productsInCart.find(
-      (orderItem) => orderItem.productID === productID
+  findOrderItem(productId) {
+    const result = this.#orderItemsInCart.find(
+      (orderItem) => orderItem.productId === productId
     );
     return result
   }
 
+  #findIndex(productId) {
+    const index = this.#orderItemsInCart.findIndex((orderItem) => {
+      return orderItem.productId === productId
+    })
+
+    if(index !== -1) {
+      return index
+    } else {
+      throw new Error('Failed to find index for the orderItem')
+    }
+
+  }
+
   /**
    * Remove a product from the order based on id
-   * @param {Number} productID - The product's id
+   * @param {Number} productId - The product's id
    */
-  removeProductById(productID, quanity) {
-    // TO DO: Check if the number we want to remove <= 0, ta bort hela elementet
-    //
+  removeProductById(productId, quantityToRemove) {
+    if (quantityToRemove <= 0 || !Number.isInteger(quantityToRemove)) {
+    throw new Error("Quantity to remove must be a positive integer");
+  }
 
+    const product = this.findOrderItem(productId)
+    if(!product) {
+      return
+    }
+
+    const quantityInCart = product.quantity
+    if(quantityInCart - quantityToRemove <=0) {
+      const index = this.#findIndex(productId)
+
+      this.#orderItemsInCart.splice(index, 1)
+      console.log('Succesfully removed the products from the cart')
+    } else {
+      const newQuantity = (product.quantity - quantityToRemove)
+      this.updateQuantity(productId, newQuantity)
+    }
+  }
+
+  updateQuantity(productId, newQuanity) {
+    if (newQuanity >= 0 || !Number.isInteger(newQuanity)) {
+    throw new Error("Quantity to remove must be a positive integer");
+    }
+
+    if(newQuanity === 0) {
+      this.removeProductById(productId)
+    }
+
+    const orderItem = this.findOrderItem(productId)
+    orderItem.quantity = newQuanity
   }
 
 
@@ -106,7 +164,7 @@ export class Order {
    * @returns {Array} Returns all of the products in the cart
    */
   displayProductsInCart() {
-    return [...this.#productsInCart];
+    return [...this.#orderItemsInCart];
   }
 
   /**
@@ -117,7 +175,7 @@ export class Order {
   calculateTotalPrice() {
     let totalPrice = 0;
 
-    this.#productsInCart.forEach((product) => {
+    this.#orderItemsInCart.forEach((product) => {
       totalPrice += product.product.getPrice() * product.quantity;
     });
 
@@ -128,9 +186,9 @@ export class Order {
    * Creates the invoice
    * @returns {File} Returns a file with the invoixe
    */
-  createInvoice(name, email, currecny) {
+  createInvoice(name, email, currency) {
     this.#isActive = false;
-    const invoice = new Invoice(this, name, email, currecny);
+    const invoice = new Invoice(this, name, email, currency);
     return invoice.createInvoice();
   }
 }

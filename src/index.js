@@ -21,6 +21,8 @@ try {
     const salad = new Product('salad', 20, 'salad')
     store.addProductToCatalog(salad)
 
+    console.log(order.displayProductsInCart())
+
 
 
     // // FIND BY ID
