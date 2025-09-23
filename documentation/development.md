@@ -20,8 +20,11 @@ T.ex. visste jag inte får prodctcatalog även skapa produkter eller kan de läg
 ![name](/documentation/img/1.png)
 I changed the name to display productCatalog instead to make it more understandable in the store class
 
-I changed this to find OrderItem instead
+I changed this to find OrderItem instead of findPRoduct in the orderClass
 ![name change](/documentation/img/2.png)
 
-Changed to orderItems in Cart instead of products since we created a object for displaying the orderItems
+Changed to orderItems in Cart instead of products since we created a object for displaying the orderItems in the order class
 ![ge](/documentation/img/1.png)
+
+I have to change from products..since its more of orderItem rather than products in the order class
+![change name](/documentation/img/4.png)

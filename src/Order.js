@@ -71,7 +71,7 @@ export class Order {
    * @param {Product} product - The product
    * @param {Number} quantity - Number of producs
    */
-  addProduct(product, quantity = 1) {
+  addOrderItem(product, quantity = 1) {
     if (!(product instanceof Product)) {
       throw TypeError("The product has to be an instance of the class Product");
     }

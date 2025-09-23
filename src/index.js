@@ -15,9 +15,9 @@ try {
     const tshirt = new Product('tShirt', 1, 'tej')
     store.addProductToCatalog(tshirt)
     store.addProductToCatalog(pizza)
-    order.addProduct(tshirt, 1)
-    order.addProduct(pizza, 1)
-    order.addProduct(tshirt)
+    order.addOrderItem(tshirt, 1)
+    order.addOrderItem(pizza, 1)
+    order.addOrderItem(tshirt)
     const salad = new Product('salad', 20, 'salad')
     store.addProductToCatalog(salad)
 
