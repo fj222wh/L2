@@ -144,6 +144,6 @@ export class Product {
    * @returns {string} Returns a summary of the product as a string
    */
   toString () {
-    return `${this.#name}, ${this.#price}, ${this.#description}, ${this.#id}`
+    return `${this.#name}, ${this.#price}, ${this.#description}`
   }
 }

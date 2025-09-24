@@ -57,4 +57,10 @@ describe('Product', () => {
       return new Product('', 0, '')
     }).toThrow()
   })
+
+  test('Test toString-function', () => {
+    const product = new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil')
+
+    expect(product.toString()).toBe('Pizza Margherita, 12.99, Classic pizza with tomato sauce, mozzarella, and basil')
+  })
 })
