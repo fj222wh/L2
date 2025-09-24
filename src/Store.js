@@ -100,12 +100,12 @@ export class Store {
   /**
    * Find an order.
    *
-   * @param {number} orderId - The order id
+   * @param {number} orderNumber - The order id
    * @returns {Order} The order
    */
-  findOrder (orderId) {
+  findOrder (orderNumber) {
     const order = this.#orders.find((order) => {
-      return order.getId() === orderId
+      return order.getOrderNumber() === orderNumber
     })
 
     if (!order) {
@@ -138,8 +138,8 @@ export class Store {
    *
    * @returns {Array} Returns an array with the active orders
    */
-  activeOrders () {
-    const activeOrders = [...this.displayAllOrders()].filter((order) => {
+  getActiveOrders () {
+    const activeOrders = [...this.getAllOrders()].filter((order) => {
       return order.isActiveOrder() === true
     })
 
@@ -151,7 +151,7 @@ export class Store {
    *
    * @returns {Array} Returns all orders
    */
-  displayAllOrders () {
+  getAllOrders () {
     return [...this.#orders]
   }
 }
