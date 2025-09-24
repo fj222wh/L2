@@ -12,7 +12,7 @@ export class Order {
   /**
    * @type {number} The order number
    */
-  #orderNr
+  #orderNumber
 
   /**
    * @type {boolean} The status of the order, if it's active
@@ -23,11 +23,6 @@ export class Order {
    * @type {Array} Aöö products in the cart
    */
   #orderItemsInCart
-
-  /**
-   * @type {number} The id of the order item in the cart
-   */
-  #orderItemID = 0
 
   /**
    * The order number of the order.
@@ -50,7 +45,7 @@ export class Order {
         'The ordernumber is not a valid number. The order number has to be a positive integer'
       )
     }
-    this.#orderNr = orderNr
+    this.#orderNumber = orderNr
   }
 
   /**
@@ -68,7 +63,7 @@ export class Order {
    * @returns {number} - Order number
    */
   getOrderNumber () {
-    return this.#orderNr
+    return this.#orderNumber
   }
 
   /**
@@ -83,12 +78,9 @@ export class Order {
     }
 
     if (!this.findOrderItem(product.getID())) {
-      this.#orderItemID++
-
       const orderItem = {
         product,
         productId: product.getID(),
-        orderItemID: this.#orderItemID,
         quantity
       }
       this.#orderItemsInCart.push(orderItem)
@@ -108,6 +100,11 @@ export class Order {
     const result = this.#orderItemsInCart.find(
       (orderItem) => orderItem.productId === productId
     )
+
+    if (result === undefined) {
+      return null
+    }
+
     return result
   }
 
@@ -142,7 +139,7 @@ export class Order {
 
     const product = this.findOrderItem(productId)
     if (!product) {
-      return
+      throw new Error('Failed to find order item')
     }
 
     const quantityInCart = product.quantity
@@ -164,7 +161,7 @@ export class Order {
    * @param {number} newQuanity The new quantity
    */
   updateOrderItemQuantity (productId, newQuanity) {
-    if (newQuanity >= 0 || !Number.isInteger(newQuanity)) {
+    if (newQuanity <= 0 || !Number.isInteger(newQuanity)) {
       throw new Error('Quantity to remove must be a positive integer')
     }
 
@@ -193,8 +190,8 @@ export class Order {
   calculateTotalPrice () {
     let totalPrice = 0
 
-    this.#orderItemsInCart.forEach((product) => {
-      totalPrice += product.product.getPrice() * product.quantity
+    this.#orderItemsInCart.forEach((orderItem) => {
+      totalPrice += (orderItem.product.getPrice() * orderItem.quantity)
     })
 
     return totalPrice

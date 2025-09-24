@@ -1,5 +1,5 @@
-// /**
-//  * Test the Invoice class
-//  */
+/**
+ * Test the Invoice class
+ */
 
-// import { Invoice } from '../src/Invoice.js'
+import { Invoice } from '../src/Invoice.js'
