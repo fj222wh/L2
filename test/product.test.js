@@ -13,6 +13,27 @@ describe('Product', () => {
     expect(product.getDescription()).toBe('Classic pizza with tomato sauce, mozzarella, and basil')
   })
 
+  test('Set the name', () => {
+    const product = new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil')
+
+    product.setName('Pizza')
+    expect(product.getName()).toBe('Pizza')
+  })
+
+  test('Set the price', () => {
+    const product = new Product('Pizza Margherita', 200, 'Classic pizza with tomato sauce, mozzarella, and basil')
+
+    product.setName('Pizza')
+    expect(product.getPrice()).toBe(200)
+  })
+
+  test('Set the description', () => {
+    const product = new Product('Pizza Margherita', 12.99, 'A basic pizza but the best')
+
+    product.setName('Pizza')
+    expect(product.getDescription()).toBe('A basic pizza but the best')
+  })
+
   test('should fail to create a Product with an invalid name', () => {
     expect(function () {
       return new Product('', 10, 'A burger with letttuce, tomate, ketchup and 180g meat')
