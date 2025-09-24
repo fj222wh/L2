@@ -74,7 +74,9 @@ export class Order {
    */
   addOrderItem (product, quantity = 1) {
     if (!(product instanceof Product)) {
-      throw TypeError('The order item has to be an instance of the class Product')
+      throw TypeError(
+        'The order item has to be an instance of the class Product'
+      )
     }
 
     if (!this.findOrderItem(product.getID())) {
@@ -97,15 +99,15 @@ export class Order {
    * @returns {Product} Returns a product
    */
   findOrderItem (productId) {
-    const order = this.#orderItemsInCart.find(
+    const orderItem = this.#orderItemsInCart.find(
       (orderItem) => orderItem.productId === productId
     )
 
-    if (order === undefined) {
+    if (orderItem === undefined) {
       return null
     }
 
-    return order
+    return orderItem
   }
 
   /**
@@ -114,7 +116,7 @@ export class Order {
    * @param {number} productId The product id
    * @returns {number} Returns the index
    */
-  #findIndex (productId) {
+  findIndex (productId) {
     const index = this.#orderItemsInCart.findIndex((orderItem) => {
       return orderItem.productId === productId
     })
@@ -144,12 +146,12 @@ export class Order {
 
     const quantityInCart = product.quantity
     if (quantityInCart - quantityToRemove <= 0) {
-      const index = this.#findIndex(productId)
+      const index = this.findIndex(productId)
 
       this.#orderItemsInCart.splice(index, 1)
       console.log('Succesfully removed the products from the cart')
     } else {
-      const newQuantity = (product.quantity - quantityToRemove)
+      const newQuantity = product.quantity - quantityToRemove
       this.updateOrderItemQuantity(productId, newQuantity)
     }
   }
@@ -166,7 +168,6 @@ export class Order {
     }
 
     if (newQuantity === 0) {
-      // Need to provide quantityToRemove parameter for removeOrderItem
       const orderItem = this.findOrderItem(productId)
       if (orderItem !== null) {
         this.removeOrderItem(productId, orderItem.quantity)
@@ -198,7 +199,7 @@ export class Order {
     let totalPrice = 0
 
     this.#orderItemsInCart.forEach((orderItem) => {
-      totalPrice += (orderItem.product.getPrice() * orderItem.quantity)
+      totalPrice += orderItem.product.getPrice() * orderItem.quantity
     })
 
     return totalPrice

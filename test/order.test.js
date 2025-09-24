@@ -150,7 +150,14 @@ describe('Order', () => {
     expect(() => order.updateOrderItemQuantity(product.getID(), -1)).toThrow('Quantity to remove must be a positive integer')
     expect(() => order.updateOrderItemQuantity(product.getID(), undefined)).toThrow('Quantity to remove must be a positive integer')
     expect(() => order.updateOrderItemQuantity(product.getID(), ['OK'])).toThrow('Quantity to remove must be a positive integer')
-    // expect(() => order.updateOrderItemQuantity(product.getID(), 0)).tocall(Function)
+  })
+
+  test('Update the quantity to 0', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 10)
+    order.updateOrderItemQuantity(product.getID(), 0)
+    expect(order.getProductsInCart().length).toBe(0)
   })
 
   test('Remove an order item from the order', () => {
@@ -181,17 +188,73 @@ describe('Order', () => {
     expect(order2.getProductsInCart()).toEqual([expectedResult])
   })
 
-  test('The order shoud have status "active" by default', () => {
-    expect(order.isActiveOrder()).toBe(true)
+  test('Remove quantity', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 10)
+    order.removeOrderItem(product.getID(), 4)
+    expect(order.getProductsInCart()[0].quantity).toBe(6)
+  })
+
+  test('Remove quantity with invalid parameters', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 10)
+    expect(() => order.removeOrderItem(product.getID(), 0)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), NaN)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), undefined)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), ['Hello'])).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), false)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), true)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem(product.getID(), { test: 'ok' })).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.removeOrderItem('', 1)).toThrow('Failed to find order item')
+  })
+
+  test('Remove the same quantity as in the cart', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 5)
+    order.removeOrderItem(product.getID(), 5)
+    expect(order.getProductsInCart().length).toBe(0)
+  })
+
+  test('Remove a larger quantity than in the cart', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 5)
+    order.removeOrderItem(product.getID(), 7)
+    expect(order.getProductsInCart().length).toBe(0)
+  })
+
+  test('Find the index of an order item', () => {
+    const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    const product2 = new Product('Sushi', 300, 'Mixed sushi, 12 pieces')
+    store.addProductToCatalog(product2)
+    store.addProductToCatalog(product1)
+    order.addOrderItem(product2, 2)
+    order.addOrderItem(product1, 1)
+
+    expect(order.findIndex(product2.getID())).toBe(0)
+    expect(order.findIndex(product1.getID())).toBe(1)
+  })
+
+  test('Find an (invalid) index', () => {
+    const product = new Product('Strawberry', 5, 'Sweet, red berry')
+
+    expect(() => order.findIndex(product.getID())).toThrow('Failed to find index for the orderItem')
   })
 
   test('The order shoud have status "active" by default', () => {
     expect(order.isActiveOrder()).toBe(true)
   })
 
-  // test('Create invoice', () => {
-  //   const invoice = order.createInvoice('Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
-  //   const htmlDoc = ``
-  //   expect(invoice).toBe(htmlDoc)
-  // })
+  test('The order shoud have status "active" by default', () => {
+    expect(order.isActiveOrder()).toBe(true)
+  })
+
+  test('Create invoice', () => {
+    const invoice = order.createInvoice('Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
+    const htmlDoc = '' // TODO: Add the html layout here
+    expect(invoice).toBe(htmlDoc)
+  })
 })
