@@ -19,7 +19,7 @@ try {
   const salad = new Product('salad', 20, 'salad')
   store.addProductToCatalog(salad)
 
-  console.log(order.displayProductsInCart())
+  console.log(order.getProductsInCart())
   console.log(catalog.displayAllProducts())
 
   console.log(order.createInvoice('Filippa', 'mail@lnu.se', 'SEK'))

@@ -69,7 +69,7 @@ describe('Order', () => {
     }
 
     const expectedResult = [orderItem1, orderItem2]
-    expect(order.displayProductsInCart()).toEqual(expectedResult)
+    expect(order.getProductsInCart()).toEqual(expectedResult)
   })
 
   test('The order should be able to add products', () => {
@@ -83,7 +83,22 @@ describe('Order', () => {
       quantity: 1
     }
 
-    expect(order.displayProductsInCart()).toEqual([orderItem])
+    expect(order.getProductsInCart()).toEqual([orderItem])
+  })
+
+  test('Should not be able to add an order item that is not of the instance Product', () => {
+    expect(() => order.addOrderItem('test')).toThrow('The order item has to be an instance of the class Product')
+    expect(() => order.addOrderItem(2)).toThrow('The order item has to be an instance of the class Product')
+    expect(() => order.addOrderItem(['HELLO'])).toThrow('The order item has to be an instance of the class Product')
+  })
+
+  test('Add an order item that already exists in the cart', () => {
+    const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product1)
+    order.addOrderItem(product1)
+    expect(order.getProductsInCart()[0].quantity).toBe(1)
+    order.addOrderItem(product1, 2)
+    expect(order.getProductsInCart()[0].quantity).toBe(3)
   })
 
   test('Calculate total price with one product', () => {
@@ -118,7 +133,24 @@ describe('Order', () => {
   })
 
   test('Update the quantity', () => {
+    const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product1)
+    order.addOrderItem(product1, 2)
+    order.updateOrderItemQuantity(product1.getID(), 10)
 
+    const orderItem = order.findOrderItem(product1.getID())
+
+    expect(orderItem.quantity).toBe(10)
+  })
+
+  test('Update quantity with invalid parameters', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product)
+    expect(() => order.updateOrderItemQuantity(product.getID(), -1)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.updateOrderItemQuantity(product.getID(), undefined)).toThrow('Quantity to remove must be a positive integer')
+    expect(() => order.updateOrderItemQuantity(product.getID(), ['OK'])).toThrow('Quantity to remove must be a positive integer')
+    // expect(() => order.updateOrderItemQuantity(product.getID(), 0)).tocall(Function)
   })
 
   test('Remove an order item from the order', () => {
@@ -145,8 +177,8 @@ describe('Order', () => {
       quantity: 3
     }
 
-    expect(order.displayProductsInCart().length).toBe(1)
-    expect(order2.displayProductsInCart()).toEqual([expectedResult])
+    expect(order.getProductsInCart().length).toBe(1)
+    expect(order2.getProductsInCart()).toEqual([expectedResult])
   })
 
   test('The order shoud have status "active" by default', () => {

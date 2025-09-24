@@ -74,7 +74,7 @@ export class Order {
    */
   addOrderItem (product, quantity = 1) {
     if (!(product instanceof Product)) {
-      throw TypeError('The product has to be an instance of the class Product')
+      throw TypeError('The order item has to be an instance of the class Product')
     }
 
     if (!this.findOrderItem(product.getID())) {
@@ -97,15 +97,15 @@ export class Order {
    * @returns {Product} Returns a product
    */
   findOrderItem (productId) {
-    const result = this.#orderItemsInCart.find(
+    const order = this.#orderItemsInCart.find(
       (orderItem) => orderItem.productId === productId
     )
 
-    if (result === undefined) {
+    if (order === undefined) {
       return null
     }
 
-    return result
+    return order
   }
 
   /**
@@ -158,19 +158,26 @@ export class Order {
    * Updates the order item quantity.
    *
    * @param {number} productId The product id
-   * @param {number} newQuanity The new quantity
+   * @param {number} newQuantity The new quantity
    */
-  updateOrderItemQuantity (productId, newQuanity) {
-    if (newQuanity <= 0 || !Number.isInteger(newQuanity)) {
+  updateOrderItemQuantity (productId, newQuantity) {
+    if (!Number.isInteger(newQuantity) || newQuantity < 0) {
       throw new Error('Quantity to remove must be a positive integer')
     }
 
-    if (newQuanity === 0) {
-      this.removeOrderItem(productId)
+    if (newQuantity === 0) {
+      // Need to provide quantityToRemove parameter for removeOrderItem
+      const orderItem = this.findOrderItem(productId)
+      if (orderItem !== null) {
+        this.removeOrderItem(productId, orderItem.quantity)
+      }
+      return
     }
 
     const orderItem = this.findOrderItem(productId)
-    orderItem.quantity = newQuanity
+    if (orderItem !== null) {
+      orderItem.quantity = newQuantity
+    }
   }
 
   /**
@@ -178,7 +185,7 @@ export class Order {
    *
    * @returns {Array} Returns all of the products in the cart
    */
-  displayProductsInCart () {
+  getProductsInCart () {
     return [...this.#orderItemsInCart]
   }
 
