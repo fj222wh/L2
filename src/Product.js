@@ -66,12 +66,8 @@ export class Product {
    * @param {number} price - The Price
    */
   setPrice (price) {
-    if (!Number.isFinite(price)) {
-      throw new TypeError('The price has to be a number')
-    }
-
-    if (price < 1) {
-      throw new Error('The price cannot be null')
+    if (!Number.isFinite(price) || price < 1) {
+      throw new TypeError('The price has to be a positve integer')
     }
 
     this.#price = price
@@ -83,8 +79,8 @@ export class Product {
    * @param {string} description - The description
    */
   setDescription (description) {
-    if (description.length < 1) {
-      throw new Error('The description of the product cannot be empty')
+    if (typeof (description) !== 'string' || (description.length < 1)) {
+      throw new Error('The description of the product has to be a string and cannot be empty')
     }
     this.#description = description
   }
@@ -96,7 +92,7 @@ export class Product {
    */
   setID (id) {
     if (!Number.isFinite(id)) {
-      throw new TypeError('The ID has to be a number')
+      throw new TypeError('The ID has to be an integer')
     }
 
     this.#id = id
