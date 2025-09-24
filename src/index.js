@@ -24,6 +24,9 @@ try {
     console.log(order.displayProductsInCart())
 
 
+    console.log(order.createInvoice('Filippa', 'mail@lnu.se', 'SEK'))
+
+
 
     // // FIND BY ID
     // order.addProduct(salad)
