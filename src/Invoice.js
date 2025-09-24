@@ -38,11 +38,11 @@ export class Invoice {
    * @param {Order} order The order to create an invoice from
    * @param {string} name The name
    * @param {string} email The email
-   * @param {string} currency The currencys
+   * @param {string} currency The currency
    */
   constructor (order, name, email, currency) {
     this.setOrder(order)
-    this.setName(name)
+    this.setCustomerName(name)
     this.setEmail(email)
     this.setCurrency(currency)
     this.#date = new Date().toLocaleString('sv-SE', { timeZone: 'Europe/Stockholm' })
@@ -54,8 +54,8 @@ export class Invoice {
    * @param {string} currency The currency
    */
   setCurrency (currency) {
-    if (currency.length <= 0) {
-      throw new Error('The currecny cannot be empty')
+    if ((typeof currency !== 'string') || currency.length <= 0) {
+      throw new Error('The currency cannot be empty. It has to be a string')
     }
     this.#currency = currency
   }
@@ -81,7 +81,7 @@ export class Invoice {
    */
   setOrder (order) {
     if (!(order instanceof Order)) {
-      throw new TypeError('The order has to be an instance of the class Order in order for the Invoice class to be able to create an invoice')
+      throw new TypeError('The parameter has to be an instance of the class Order in order for the Invoice class to be able to create an invoice')
     }
     this.#order = order
   }
@@ -91,12 +91,57 @@ export class Invoice {
    *
    * @param {string} name - name
    */
-  setName (name) {
+  setCustomerName (name) {
     if (name.length <= 0) {
       throw new Error('The name cannot be empty')
     }
 
     this.#customerName = name
+  }
+
+  /**
+   * Gets the currency.
+   *
+   * @returns {string} The currency
+   */
+  getCurrency () {
+    return this.#currency
+  }
+
+  /**
+   * Gets the email.
+   *
+   * @returns {string} The email
+   */
+  getEmail () {
+    return this.#email
+  }
+
+  /**
+   * Gets the order.
+   *
+   * @returns {Order} The order
+   */
+  getOrder () {
+    return this.#order
+  }
+
+  /**
+   * Gets the customer name.
+   *
+   * @returns {string} The customer name
+   */
+  getCustomerName () {
+    return this.#customerName
+  }
+
+  /**
+   * Gets the date when the invoice was created.
+   *
+   * @returns {string} The date
+   */
+  getDate () {
+    return this.#date
   }
 
   /**
