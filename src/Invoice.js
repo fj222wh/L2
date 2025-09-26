@@ -45,7 +45,21 @@ export class Invoice {
     this.setCustomerName(name)
     this.setEmail(email)
     this.setCurrency(currency)
-    this.#date = new Date().toLocaleString('sv-SE', { timeZone: 'Europe/Stockholm' })
+    this.setDate()
+  }
+
+  /**
+   * Sets the date.
+   */
+  setDate () {
+    this.#date = new Date().toLocaleString('sv-SE', {
+      timeZone: 'Europe/Stockholm',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    })
   }
 
   /**
@@ -151,28 +165,98 @@ export class Invoice {
    */
   createInvoice () {
     const htmlDoc = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Invoice ${this.#order.getOrderNumber()} - ${this.#date} </title>
-        </head>
-        <body>
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Invoice</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            main {
+                font-family: Arial, Helvetica, sans-serif;
+                padding: 50px;
+                width: 90%;
+                max-width: 1000px;
+                margin: auto;
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+
+
+            }
+
+            th {
+                text-align: left;
+            }
+
+            tr,
+            td,
+            th {
+                padding: 10px;
+                padding: 5px 40px;
+                border-collapse: collapse;
+            }
+
+            th {
+                background-color: rgba(189, 189, 189, 0.765);
+            }
+
+            .td-quantity,
+            #th-quantity {
+                text-align: center;
+            }
+
+            #tr-total {
+                border-top: solid 1px black;
+            }
+
+            hr {
+                margin: 20px 0;
+                border: solid black 0.5px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main>
             <h1>Invoice</h1>
-            <p><strong>Customer:</strong> ${this.#customerName}</p>
-            <p><strong>Email:</strong> ${this.#email}</p>
-            <p><strong>Order Number:</strong> ${this.#order.getOrderNumber()}</p>
-            <p><strong>Date:</strong> ${this.#date}</p>
-            
-            <h2>Products:</h2>
-            ${this.#printProductsHtml()}
-            
-            <h3>Total Price: ${this.#order.calculateTotalPrice()} ${this.#currency}</h3>
-            
-        </body>
-        </html>
-        `
+            <div id="orderInfo">
+                <p>Date: ${this.#date} </p>
+                <p>Customer: ${this.#customerName}</p>
+                <p>Email: ${this.#email}</p>
+            </div>
+            <br>
+
+            <div id="order">
+
+                <hr>
+                <table>
+                    <tr>
+                        <th>Products</th>
+                        <th id="th-quantity">Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    ${this.#printProductsHtml()}
+                    <tr id="tr-total">
+                        <td colspan="2">
+                        </td>
+                        <td colspan="2">Total: ${this.#order.calculateTotalPrice().toFixed(2)} ${this.#currency}</td>
+                    </tr>
+                </table>
+            </div>
+        </main>
+    </body>
+</html>`
     return htmlDoc
   }
 
@@ -183,9 +267,19 @@ export class Invoice {
    */
   #printProductsHtml () {
     let html = ''
+
     const productsInCart = this.#order.getProductsInCart() // Missing parentheses!
     productsInCart.forEach(product => {
-      html += `<p class="product"> ${product.product.getName()}</p>\n`
+      console.log('this is the product')
+      console.log(product)
+      const td = `
+      <tr>
+          <td>${product.product.getName()}</td>
+          <td class="td-quantity">${product.quantity}</td>
+          <td>${product.product.getPrice()}</td>
+      </tr>
+    `
+      html += td
     })
 
     return html

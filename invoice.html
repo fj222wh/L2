@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 50px;
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+    
+
+        }
+
+        th {
+            text-align: left;
+        }
+
+        tr, td, th {
+            padding: 10px;
+            padding: 5px 40px;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: rgba(189, 189, 189, 0.765);
+        }
+
+        .td-quantity, #th-quantity {
+            text-align: center;
+        }
+
+        #tr-total {
+            border-top: solid 1px black;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: solid black 0.5px;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Invoice</h1>
+        <div id="orderInfo">
+            <p>Date: </p>
+            <p>Customer: </p>
+            <p>Email: </p>
+        </div>
+        <br>
+
+        <div id="order">
+
+                <hr>
+            <table>
+                <tr>
+                    <th>Products</th>
+                    <th id="th-quantity">Quantity</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>Washing machine</td>
+                    <td class="td-quantity">2</td>
+                    <td>120KR</td>
+
+                </tr>
+                <tr id="tr-total">
+                    <td colspan="2">
+                    </td>
+                    <td colspan="2">Total: </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

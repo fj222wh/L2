@@ -66,7 +66,7 @@ export class Product {
    * @param {number} price - The Price
    */
   setPrice (price) {
-    if (!Number.isFinite(price) || price < 1) {
+    if (!Number.isFinite(price) || price < 1) {
       throw new TypeError('The price has to be a positve integer')
     }
 

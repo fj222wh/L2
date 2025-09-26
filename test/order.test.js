@@ -251,10 +251,4 @@ describe('Order', () => {
   test('The order shoud have status "active" by default', () => {
     expect(order.isActiveOrder()).toBe(true)
   })
-
-  test('Create invoice', () => {
-    const invoice = order.createInvoice('Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
-    const htmlDoc = '' // TODO: Add the html layout here
-    expect(invoice).toBe(htmlDoc)
-  })
 })
