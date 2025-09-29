@@ -9,11 +9,11 @@
 - There should be information stored about each product
 - There should be information about the company/store/etc
 - Catalog of all products
+- Each product has a category, sort all products based on category
 
 
 
-## Advanced functionality:
-- Implement categorier on products
+## Future functionality:
 - Calculate discounts
 - Taxes on products?
 - Save stats of sales
@@ -23,4 +23,7 @@
 
 
 ## Testing
-All testing will be done with jest and with a test applicaiton.
+The full testing report can be found [here](/documentation/testing.md)
+
+## License
+This project is under the MIT license. You can find it [here]('https://github.com/fj222wh/L2/blob/main/LICENSE.md'). Since this module is a part of a school project it will not be continued to be developed and it is not guarnteed the module is bug free.
