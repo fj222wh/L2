@@ -20,7 +20,7 @@ export class Order {
   #isActive = true
 
   /**
-   * @type {Array} Aöö products in the cart
+   * @type {Array} All products in the cart
    */
   #orderItemsInCart
 
