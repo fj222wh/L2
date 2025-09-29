@@ -5,7 +5,7 @@
 - [Usage](#usage)
 - [Features](#features)
 - [Installation](#installation)
-- [Examples](#examples)
+- [Example](#example)
 - [Testing](#testing)
 - [License](#license)
 
@@ -18,9 +18,9 @@ Since it's made for educational purpuses is not guarenteed to be bug-free. The o
 ---
 
 ## Usage
-The module provides the business logic for an object-oriented order system. It provides  you to create and manage products, create and organize a product catalog, handle orders, calculate total sum, and generate invoices based on the orders.
+The module provides the business logic for an object-oriented order system. It provides you with the backend logic for to creating and manage products, catalog, sort and create the product catalog, handle orders, add products, update or remove products from an order, calculate total sum, and generate invoices in HTML based on the orders.
 
-The classes and its features:
+The classes and its public methods are explained below:
 
 ### Store
 - `constructor(name)` - Create a new store with a name
@@ -85,20 +85,6 @@ The classes and its features:
 - `getDate()` - Get the invoice date
 - `createInvoice()` - Generate the HTML invoice
 
-
-
-### Features
-- Create and configure a store
-- Add and manage customer orders
-- Add products and choose quantities for the cart
-- Update or remove products from an order
-- Calculate total sum of the order
-- Generate invoices in HTML format
-- Maintain a complete product catalog
-- Sort products by category in the product catalog
-
----
-
 ## Installation
 
 Follow these steps to set up the project:
@@ -107,18 +93,44 @@ Follow these steps to set up the project:
 ```bash
 git clone https://github.com/fj222wh/Order-System-L2
 ```
-3. Copy all files under the src folder to your working repository. 
-4. To use is import it using ES-modules
+2. Copy all the classes (`Order.js`, `Store.js`, `Invoice.js`, `ProductCatalog.js`, `Product.js`) under the `src` folder to your working repository.
 ```js
-import Order from '..PATH'
+project-root/
+├── src/
+│   ├── Order.js
+│   ├── Store.js
+│   ├── Invoice.js
+│   ├── Product.js
+│   ├── ProductCatalog.js
+│   └── index.js
+└──
 ```
-5. Now you can start using the classes
+3. To use is import it using ES-modules. Exchange `<YOUR PATH>` with your relative path.
+```js
+import Order from '<YOUR PATH>'
+```
+
+Example:
+```js
+import Order from '/src/Order.js'
+```
+4. Now you can start using the classes and import them according to ES-modules with the keyword `import`
 
 ## Example
 This module can be used on the backend in your project to create and handle the store, products, productcatalog och orders in an object oriented way. You only need to follow the [installation guide](#installation) and start importing the classes.
 
 ```js
+  const store = new Store('Restaurant') // Creates the store
+  const order = store.createOrder() // Create an order
+  const sushi = new Product('Salmon Nigiri Sushi Set',
+    19.99, '10 pieces of fresh salmon nigiri sushi, served with wasabi and ginger.') // Create a product
+  store.addProductToCatalog(sushi) // Add the product to the store's product catalog
 
+  order.addOrderItem(sushi, 2) // Add the items to the order
+
+  const sum = order.calculateTotalPrice() // Calculates the total price
+
+  const invoice = new Invoice(order, 'Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
 ```
 
 ## License
