@@ -68,8 +68,8 @@ export class Store {
    *
    * @returns {Array} Returns an array with all products
    */
-  displayProductCatalog () {
-    return this.#productCatalog.displayAllProducts()
+  getAllProductsFromCatalog () {
+    return this.#productCatalog.getAllProducts()
   }
 
   /**

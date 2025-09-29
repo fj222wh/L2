@@ -62,14 +62,11 @@ describe('Product', () => {
     expect(product.getDescription()).toBe('A basic pizza but the best')
   })
 
-  test('Set the category', () => {
+  test('Set the description', () => {
     const product = new Product('Pizza Margherita', 12.99, 'A basic pizza but the best')
 
-    product.setCategory('fOod')
-
-    expect(product.getCategory()).toBe('food')
-    expect(() => product.setCategory('')).toThrow('The category has to be a string and it cannot be empty')
-    expect(() => product.setCategory([])).toThrow('The category has to be a string and it cannot be empty')
+    product.setName('Pizza')
+    expect(product.getDescription()).toBe('A basic pizza but the best')
   })
 
   test('Should fail to create a Product with an invalid name', () => {

@@ -4,7 +4,7 @@
 - Add a product, select quantatiy to add to the cart
 - Remove a product
 - Update a product quantity
-- Calculate total sum 
+- Calculate total sum
 - Generate a invoice file
 - There should be information stored about each product
 - There should be information about the company/store/etc

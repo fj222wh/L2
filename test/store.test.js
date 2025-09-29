@@ -31,9 +31,9 @@ describe('Store', () => {
     expect(store.getProductCatalog() instanceof ProductCatalog).toBe(true)
   })
 
-  test('Display all products in the productCatalog', () => {
-    expect(store.displayProductCatalog() instanceof Array)
-    expect(store.displayProductCatalog().length).toBe(0)
+  test('Get all products in the product catalog', () => {
+    expect(store.getAllProductsFromCatalog() instanceof Array)
+    expect(store.getAllProductsFromCatalog().length).toBe(0)
   })
 
   test('Create an order', () => {

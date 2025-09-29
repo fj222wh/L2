@@ -76,7 +76,23 @@ export class ProductCatalog {
    *
    * @returns {Array} - Returns all products in the catalog
    */
-  displayAllProducts () {
+  getAllProducts () {
     return [...this.#catalog]
+  }
+
+  /**
+   * Returns the array with products from the chose category.
+   *
+   * @param {string} category The category
+   * @returns {Array} The products from the category
+   */
+  getProductsFromCategory (category) {
+    if (typeof category !== 'string' || category === '') {
+      throw new TypeError('The category has to be a string and it cannot be empty')
+    }
+
+    return this.#catalog.filter(product => {
+      return product.getCategory === category.toLowerCase()
+    })
   }
 }

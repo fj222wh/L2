@@ -10,7 +10,7 @@ describe('Product Catalog', () => {
     const catalog = new ProductCatalog()
 
     expect(catalog instanceof ProductCatalog).toBe(true)
-    expect(catalog.displayAllProducts().length).toBe(0)
+    expect(catalog.getAllProducts().length).toBe(0)
   })
 
   test('Add a product to the product catalog', () => {
@@ -18,7 +18,7 @@ describe('Product Catalog', () => {
     const catalog = new ProductCatalog()
     catalog.addProduct(product)
 
-    expect(catalog.displayAllProducts()).toEqual([product])
+    expect(catalog.getAllProducts()).toEqual([product])
   })
 
   test('Add an object to the catalog which is not a product', () => {
@@ -53,10 +53,10 @@ describe('Product Catalog', () => {
     const catalog = new ProductCatalog()
     const product = new Product('Dress', 200, 'A pretty dress')
     catalog.addProduct(product)
-    expect(catalog.displayAllProducts().length).toBe(1)
+    expect(catalog.getAllProducts().length).toBe(1)
     const productId = product.getID()
     catalog.removeProduct(productId)
-    expect(catalog.displayAllProducts().length).toBe(0)
+    expect(catalog.getAllProducts().length).toBe(0)
   })
 
   test('Delete a product from the catalog', () => {
