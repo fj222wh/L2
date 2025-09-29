@@ -6,11 +6,12 @@ import { Product } from '../src/Product.js'
 
 describe('Product', () => {
   test('Should create a product with valid parameters', () => {
-    const product = new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil')
+    const product = new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil', 'FOOD')
 
     expect(product.getName()).toBe('Pizza Margherita')
     expect(product.getPrice()).toBe(12.99)
     expect(product.getDescription()).toBe('Classic pizza with tomato sauce, mozzarella, and basil')
+    expect(product.getCategory()).toBe('food')
   })
 
   test('Create a product with invalid parameters', () => {
@@ -19,6 +20,9 @@ describe('Product', () => {
     expect(() => new Product('test', 2, '')).toThrow('The description of the product has to be a string and cannot be empty')
     expect(() => new Product('test', 2, 2)).toThrow('The description of the product has to be a string and cannot be empty')
     expect(() => new Product('test', 2, undefined)).toThrow('The description of the product has to be a string and cannot be empty')
+    expect(() => new Product(new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil', '')).toThrow('The category has to be a string and it cannot be empty'))
+    expect(() => new Product(new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil', undefined)).toThrow('The category has to be a string and it cannot be empty'))
+    expect(() => new Product(new Product('Pizza Margherita', 12.99, 'Classic pizza with tomato sauce, mozzarella, and basil', ['food'])).toThrow('The category has to be a string and it cannot be empty'))
   })
 
   test('Set the ID', () => {
@@ -56,6 +60,16 @@ describe('Product', () => {
 
     product.setName('Pizza')
     expect(product.getDescription()).toBe('A basic pizza but the best')
+  })
+
+  test('Set the category', () => {
+    const product = new Product('Pizza Margherita', 12.99, 'A basic pizza but the best')
+
+    product.setCategory('fOod')
+
+    expect(product.getCategory()).toBe('food')
+    expect(() => product.setCategory('')).toThrow('The category has to be a string and it cannot be empty')
+    expect(() => product.setCategory([])).toThrow('The category has to be a string and it cannot be empty')
   })
 
   test('Should fail to create a Product with an invalid name', () => {

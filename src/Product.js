@@ -47,11 +47,15 @@ export class Product {
    * @param {string} name - The name
    * @param {number} price - The price
    * @param {string} description - The description
+   * @param {string} category - the category
    */
-  constructor (name, price, description) {
+  constructor (name, price, description, category) {
     this.setName(name)
     this.setPrice(price)
     this.setDescription(description)
+    if (category) {
+      this.setCategory(category)
+    }
   }
 
   /**
@@ -115,7 +119,7 @@ export class Product {
       throw new TypeError('The category has to be a string and it cannot be empty')
     }
 
-    this.category = category
+    this.#category = category.toLowerCase()
   }
 
   /**
