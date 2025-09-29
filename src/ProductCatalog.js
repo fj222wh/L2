@@ -87,12 +87,12 @@ export class ProductCatalog {
    * @returns {Array} The products from the category
    */
   getProductsFromCategory (category) {
-    if (typeof category !== 'string' || category === '') {
+    if (category.length <= 0 || typeof category !== 'string') {
       throw new TypeError('The category has to be a string and it cannot be empty')
     }
 
     return this.#catalog.filter(product => {
-      return product.getCategory === category.toLowerCase()
+      return product.getCategory() === category.toLowerCase()
     })
   }
 }

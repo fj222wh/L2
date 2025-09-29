@@ -68,4 +68,24 @@ describe('Product Catalog', () => {
 
     expect(() => catalog.removeProduct(productId)).toThrow('Failed to remove the product from the product catalog')
   })
+
+  test('Sort products based on category', () => {
+    const catalog = new ProductCatalog()
+    const product1 = new Product('Pizza', 129, 'Delicious pizza', 'fOOD')
+    const product2 = new Product('Dress', 200, 'A pretty dress', 'clOTHES')
+    const product3 = new Product('Pants', 100, 'Blue jeans', 'clothes')
+    const product4 = new Product('MacBook Pro', 14000, 'A modern computer', 'tEch')
+    const products = [product1, product2, product3, product4]
+    products.forEach(product => catalog.addProduct(product))
+
+    expect(catalog.getProductsFromCategory('food')).toEqual([product1])
+    expect(catalog.getProductsFromCategory('FOod')).toEqual([product1])
+    expect(catalog.getProductsFromCategory('Fashion')).toEqual([])
+    expect(catalog.getProductsFromCategory('Clothes')).toEqual([product2, product3])
+    expect(catalog.getProductsFromCategory('teCh')).toEqual([product4])
+    expect(() => catalog.getProductsFromCategory('').toThrow('The category has to be a string and it cannot be empty'))
+    expect(() => catalog.getProductsFromCategory(undefined).toThrow('The category has to be a string and it cannot be empty'))
+    expect(() => catalog.getProductsFromCategory(['clothes']).toThrow('The category has to be a string and it cannot be empty'))
+    expect(() => catalog.getProductsFromCategory({ category: 'tech' }).toThrow('The category has to be a string and it cannot be empty'))
+  })
 })
