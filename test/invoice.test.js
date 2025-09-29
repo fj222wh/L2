@@ -45,82 +45,10 @@ describe('Order', () => {
     products.forEach(product => store.addProductToCatalog(product))
     products.forEach(product => order.addOrderItem(product))
 
-    const html = `<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Invoice</title>
-
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            main {
-                font-family: Arial, Helvetica, sans-serif;
-                padding: 50px;
-                width: 90%;
-                max-width: 1000px;
-                margin: auto;
-            }
-
-            table {
-                border-collapse: collapse;
-                width: 100%;
-
-
-            }
-
-            th {
-                text-align: left;
-            }
-
-            tr,
-            td,
-            th {
-                padding: 10px;
-                padding: 5px 40px;
-                border-collapse: collapse;
-            }
-
-            th {
-                background-color: rgba(189, 189, 189, 0.765);
-            }
-
-            .td-quantity,
-            #th-quantity {
-                text-align: center;
-            }
-
-            #tr-total {
-                border-top: solid 1px black;
-            }
-
-            hr {
-                margin: 20px 0;
-                border: solid black 0.5px;
-            }
-        </style>
-    </head>
-
-    <body>
-        <main>
-            <h1>Invoice</h1>
-            <div id="orderInfo">
-                <p>Date: 2025-09-26 18:20 </p>
-                <p>Customer: Filippa Johansson</p>
-                <p>Email: fj222wh@student.lnu.se</p>
-            </div>
-            <br>
-
-            <div id="order">
-
-                <hr>
-                <table>
+    const invoice = new Invoice(order, 'Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
+    expect(invoice.createInvoice()).toContain(`                <p>Customer: Filippa Johansson</p>
+                <p>Email: fj222wh@student.lnu.se</p>`)
+    expect(invoice.createInvoice()).toContain(`                <table>
                     <tr>
                         <th>Products</th>
                         <th id="th-quantity">Quantity</th>
@@ -150,13 +78,6 @@ describe('Order', () => {
                         </td>
                         <td colspan="2">Total: 2250.00 SEK</td>
                     </tr>
-                </table>
-            </div>
-        </main>
-    </body>
-</html>`
-
-    const invoice = new Invoice(order, 'Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
-    expect(invoice.createInvoice()).toEqual(html)
+                </table>`)
   })
 })

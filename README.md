@@ -3,8 +3,8 @@
 ## Basic functionality:
 - Add a product, select quantatiy to add to the cart
 - Remove a product
-- Update a product
-- Calculate total sum
+- Update a product quantity
+- Calculate total sum 
 - Generate a invoice file
 - There should be information stored about each product
 - There should be information about the company/store/etc
@@ -13,12 +13,11 @@
 
 
 ## Advanced functionality:
+- Implement categorier on products
 - Calculate discounts
-- Taxes on products
-- Functionality for customers/admin?
+- Taxes on products?
 - Save stats of sales
 - Storage (Counting items in store or smth)
-- Payments (Not possible to add here tho)
 - Reports, stats of sales
 - Delivery fees based on total sum
 

@@ -206,6 +206,13 @@ export class Order {
   }
 
   /**
+   * Empties the cart.
+   */
+  clearCart () {
+    this.#orderItemsInCart.length = 0
+  }
+
+  /**
    * Creates the invoice.
    *
    * @param {string} name The name

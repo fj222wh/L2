@@ -251,4 +251,18 @@ describe('Order', () => {
   test('The order shoud have status "active" by default', () => {
     expect(order.isActiveOrder()).toBe(true)
   })
+
+  test('Clear an order', () => {
+    const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    const product2 = new Product('Sushi', 300, 'Mixed sushi, 12 pieces')
+    store.addProductToCatalog(product2)
+    store.addProductToCatalog(product1)
+    order.addOrderItem(product2, 2)
+    order.addOrderItem(product1, 1)
+
+    expect(order.getProductsInCart().length).toBe(2)
+    order.clearCart()
+    expect(order.getProductsInCart().length).toBe(0)
+    expect(order.getProductsInCart()).toEqual([])
+  })
 })

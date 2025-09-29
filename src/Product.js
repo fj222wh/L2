@@ -35,6 +35,13 @@ export class Product {
   #id
 
   /**
+   * The category of the product
+   *
+   * @type {string}
+   */
+  #category
+
+  /**
    * The constructor of the class Product.
    *
    * @param {string} name - The name
@@ -96,6 +103,28 @@ export class Product {
     }
 
     this.#id = id
+  }
+
+  /**
+   * Sets the category.
+   *
+   * @param {string} category The category of the product
+   */
+  setCategory (category) {
+    if (typeof category !== 'string' || category === '') {
+      throw new TypeError('The category has to be a string and it cannot be empty')
+    }
+
+    this.category = category
+  }
+
+  /**
+   * Returns the category of the product.
+   *
+   * @returns {string} The category
+   */
+  getCategory () {
+    return this.#category
   }
 
   /**
