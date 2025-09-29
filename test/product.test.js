@@ -87,6 +87,12 @@ describe('Product', () => {
     }).toThrow('The description of the product has to be a string and cannot be empty')
   })
 
+  test('Should fail to create a Product with a invalid category', () => {
+    expect(() => new Product('Hamburger', 10, 'A burger with meat, salad, tomato', [])).toThrow('The category has to be a string and it cannot be empty')
+    expect(() => new Product('Hamburger', 10, 'A burger with meat, salad, tomato', { category: 'food' })).toThrow('The category has to be a string and it cannot be empty')
+    expect(() => new Product('Hamburger', 10, 'A burger with meat, salad, tomato', '')).toThrow('The category has to be a string and it cannot be empty')
+  })
+
   test('Should fail to create a Product with all invalid parameters', () => {
     expect(() => {
       return new Product('', 0, '')

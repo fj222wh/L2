@@ -53,7 +53,7 @@ export class Product {
     this.setName(name)
     this.setPrice(price)
     this.setDescription(description)
-    if (category) {
+    if (category !== undefined) {
       this.setCategory(category)
     }
   }
@@ -115,10 +115,9 @@ export class Product {
    * @param {string} category The category of the product
    */
   setCategory (category) {
-    if (typeof category !== 'string' || category === '') {
+    if (category.length <= 0 || typeof category !== 'string') {
       throw new TypeError('The category has to be a string and it cannot be empty')
     }
-
     this.#category = category.toLowerCase()
   }
 
