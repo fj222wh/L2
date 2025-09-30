@@ -92,16 +92,29 @@ export class Order {
     }
 
     if (!this.findOrderItem(product.getID())) {
-      const orderItem = {
-        product,
-        productId: product.getID(),
-        quantity
-      }
+      const orderItem = this.#createOrderItem(product, quantity)
       this.#orderItemsInCart.push(orderItem)
     } else {
       const productInCart = this.findOrderItem(product.getID())
       productInCart.quantity += quantity
     }
+  }
+
+  /**
+   * Creates the orderItem object.
+   *
+   * @param {Product} product The product
+   * @param {number} quantity The quantity
+   * @returns {object} Returns the orderItem object
+   */
+  #createOrderItem (product, quantity) {
+    const orderItem = {
+      product,
+      productId: product.getID(),
+      quantity
+    }
+
+    return orderItem
   }
 
   /**
