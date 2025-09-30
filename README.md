@@ -3,11 +3,11 @@
 ## Table of Contents
 - [Overview](#overview)
 - [Usage](#usage)
-- [Features](#features)
 - [Installation](#installation)
 - [Example](#example)
 - [Testing](#testing)
 - [License](#license)
+- [Developer](#developer)
 
 ## Overview
 This module has been created as an assignment for the course 1dv610 – Introduction to Software Quality at Linnéuniversitet.
@@ -138,3 +138,5 @@ This project is made for an assigment at LNU and goes under the MIT license. You
 ## Testing
 During the development process, the framework jest has been used to test the code. The full testing and coverage report can be found [here](/documentation/testing.md)
 
+## Developer
+This project lies under the MIT license and anyone is free to contribute and use this project. To read more about the developing process [here](/documentation/developer.md)
