@@ -101,8 +101,7 @@ project-root/
 │   ├── Store.js
 │   ├── Invoice.js
 │   ├── Product.js
-│   ├── ProductCatalog.js
-│   └── index.js
+│   └── ProductCatalog.js
 └──
 ```
 3. To use is import it using ES-modules. Exchange `<YOUR PATH>` with your relative path.

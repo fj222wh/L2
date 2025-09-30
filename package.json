@@ -5,19 +5,23 @@
   "type": "module",
   "scripts": {
     "test": "npx --node-options=--experimental-vm-modules jest --verbose --coverage || exit 0",
+    "test:order": "npx --node-options=--experimental-vm-modules jest tests/order.test.js --verbose --coverage",
+    "test:store": "npx --node-options=--experimental-vm-modules jest tests/store.test.js --verbose --coverage",
+    "test:product": "npx --node-options=--experimental-vm-modules jest tests/product.test.js --verbose --coverage",
+    "test:productCatalog": "npx --node-options=--experimental-vm-modules jest tests/productCatalog.test.js --verbose --coverage",
+    "test:invoice": "npx --node-options=--experimental-vm-modules jest tests/invoice.test.js --verbose --coverage",
     "start": "node ./src/index.js",
     "lint": "npx eslint ./src || exit 0",
     "lint:fix": "npm eslint ./src --fix || exit 0"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Filippa Johansson",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "jest": "^29.7.0"
   },
   "devDependencies": {
-    "@lnu/eslint-config": "^1.1.10",
-    "supertest": "^7.1.1"
+    "@lnu/eslint-config": "^1.1.10"
   }
 }
