@@ -15,7 +15,7 @@ export class Order {
   #orderNumber
 
   /**
-   * @type {boolean} The status of the order, if it's active
+   * @type {boolean} The status of the order, true if it's active
    */
   #isActive = true
 
@@ -55,6 +55,18 @@ export class Order {
    */
   isActiveOrder () {
     return this.#isActive
+  }
+
+  /**
+   * Changes the status to inactive.
+   *
+   * @param {boolean} boolean True or false value
+   */
+  setStatus (boolean) {
+    if (typeof boolean !== 'boolean') {
+      throw new TypeError('The parameter has to be a boolean')
+    }
+    this.#isActive = boolean
   }
 
   /**
@@ -147,9 +159,7 @@ export class Order {
     const quantityInCart = product.quantity
     if (quantityInCart - quantityToRemove <= 0) {
       const index = this.findIndex(productId)
-
       this.#orderItemsInCart.splice(index, 1)
-      console.log('Succesfully removed the products from the cart')
     } else {
       const newQuantity = product.quantity - quantityToRemove
       this.updateOrderItemQuantity(productId, newQuantity)
@@ -221,7 +231,6 @@ export class Order {
    * @returns {HTMLCollection} Returns HTML
    */
   createInvoice (name, email, currency) {
-    this.#isActive = false
     const invoice = new Invoice(this, name, email, currency)
     return invoice.createInvoice()
   }
