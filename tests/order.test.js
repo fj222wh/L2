@@ -69,7 +69,7 @@ describe('Order', () => {
     }
 
     const expectedResult = [orderItem1, orderItem2]
-    expect(order.getProductsInCart()).toEqual(expectedResult)
+    expect(order.getOrderItemsInCart()).toEqual(expectedResult)
   })
 
   test('The order should be able to add products', () => {
@@ -83,7 +83,7 @@ describe('Order', () => {
       quantity: 1
     }
 
-    expect(order.getProductsInCart()).toEqual([orderItem])
+    expect(order.getOrderItemsInCart()).toEqual([orderItem])
   })
 
   test('Should not be able to add an order item that is not of the instance Product', () => {
@@ -96,9 +96,9 @@ describe('Order', () => {
     const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
     store.addProductToCatalog(product1)
     order.addOrderItem(product1)
-    expect(order.getProductsInCart()[0].quantity).toBe(1)
+    expect(order.getOrderItemsInCart()[0].quantity).toBe(1)
     order.addOrderItem(product1, 2)
-    expect(order.getProductsInCart()[0].quantity).toBe(3)
+    expect(order.getOrderItemsInCart()[0].quantity).toBe(3)
   })
 
   test('Calculate total price with one product', () => {
@@ -157,7 +157,7 @@ describe('Order', () => {
     store.addProductToCatalog(product)
     order.addOrderItem(product, 10)
     order.updateOrderItemQuantity(product.getID(), 0)
-    expect(order.getProductsInCart().length).toBe(0)
+    expect(order.getOrderItemsInCart().length).toBe(0)
   })
 
   test('Remove an order item from the order', () => {
@@ -184,8 +184,8 @@ describe('Order', () => {
       quantity: 3
     }
 
-    expect(order.getProductsInCart().length).toBe(1)
-    expect(order2.getProductsInCart()).toEqual([expectedResult])
+    expect(order.getOrderItemsInCart().length).toBe(1)
+    expect(order2.getOrderItemsInCart()).toEqual([expectedResult])
   })
 
   test('Remove quantity', () => {
@@ -193,7 +193,7 @@ describe('Order', () => {
     store.addProductToCatalog(product)
     order.addOrderItem(product, 10)
     order.removeOrderItem(product.getID(), 4)
-    expect(order.getProductsInCart()[0].quantity).toBe(6)
+    expect(order.getOrderItemsInCart()[0].quantity).toBe(6)
   })
 
   test('Remove quantity with invalid parameters', () => {
@@ -215,7 +215,7 @@ describe('Order', () => {
     store.addProductToCatalog(product)
     order.addOrderItem(product, 5)
     order.removeOrderItem(product.getID(), 5)
-    expect(order.getProductsInCart().length).toBe(0)
+    expect(order.getOrderItemsInCart().length).toBe(0)
   })
 
   test('Remove a larger quantity than in the cart', () => {
@@ -223,7 +223,7 @@ describe('Order', () => {
     store.addProductToCatalog(product)
     order.addOrderItem(product, 5)
     order.removeOrderItem(product.getID(), 7)
-    expect(order.getProductsInCart().length).toBe(0)
+    expect(order.getOrderItemsInCart().length).toBe(0)
   })
 
   test('Find the index of an order item', () => {
@@ -260,9 +260,9 @@ describe('Order', () => {
     order.addOrderItem(product2, 2)
     order.addOrderItem(product1, 1)
 
-    expect(order.getProductsInCart().length).toBe(2)
+    expect(order.getOrderItemsInCart().length).toBe(2)
     order.clearCart()
-    expect(order.getProductsInCart().length).toBe(0)
-    expect(order.getProductsInCart()).toEqual([])
+    expect(order.getOrderItemsInCart().length).toBe(0)
+    expect(order.getOrderItemsInCart()).toEqual([])
   })
 })

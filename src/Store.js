@@ -123,7 +123,6 @@ export class Store {
 
     if (index !== -1) {
       this.#orders.splice(index, 1)
-      console.log('The order has been deleted successfully')
     } else {
       throw new Error('Failed to delete the order from store')
     }

@@ -34,7 +34,7 @@ This module is still under development. Currently, it provides a simplified orde
 So far, the order system handles the most fundamental operations such as handling the product catalog, creating an order, adding, updating and removing order items from an order and generating an invoice in HTML format.
 
 ## Product Backlog
-The vision is to provide the user with more functionalites and classes to create a robust ordersystem.
+The vision is to provide the user with more functionalites to give the order system more complexity and structure.
 
 The planned features are following:
 - Add and handle discounts on orders/products

@@ -268,7 +268,7 @@ export class Invoice {
   #printProductsHtml () {
     let html = ''
 
-    const productsInCart = this.#order.getProductsInCart() // Missing parentheses!
+    const productsInCart = this.#order.getOrderItemsInCart() // Missing parentheses!
     productsInCart.forEach(product => {
       console.log('this is the product')
       console.log(product)

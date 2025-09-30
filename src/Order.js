@@ -186,7 +186,7 @@ export class Order {
    *
    * @returns {Array} Returns all of the products in the cart
    */
-  getProductsInCart () {
+  getOrderItemsInCart () {
     return [...this.#orderItemsInCart]
   }
 

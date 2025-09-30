@@ -65,7 +65,6 @@ export class ProductCatalog {
 
     if (index !== -1) {
       this.#catalog.splice(index, 1)
-      console.log('The order has been deleted successfully')
     } else {
       throw new Error('Failed to remove the product from the product catalog')
     }
