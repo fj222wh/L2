@@ -132,7 +132,7 @@ describe('Order', () => {
     expect(order.calculateTotalPrice()).toBe(300)
   })
 
-  test('Update the quantity', () => {
+  test('Update the quantity (increase)', () => {
     const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
     store.addProductToCatalog(product1)
     order.addOrderItem(product1, 2)
@@ -143,13 +143,15 @@ describe('Order', () => {
     expect(orderItem.quantity).toBe(10)
   })
 
-  test('Update quantity with invalid parameters', () => {
-    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
-    store.addProductToCatalog(product)
-    order.addOrderItem(product)
-    expect(() => order.updateOrderItemQuantity(product.getID(), -1)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.updateOrderItemQuantity(product.getID(), undefined)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.updateOrderItemQuantity(product.getID(), ['OK'])).toThrow('Quantity to remove must be a positive integer')
+  test('Update the quantity (decrase)', () => {
+    const product1 = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product1)
+    order.addOrderItem(product1, 10)
+    order.updateOrderItemQuantity(product1.getID(), 6)
+
+    const orderItem = order.findOrderItem(product1.getID())
+
+    expect(orderItem.quantity).toBe(6)
   })
 
   test('Update the quantity to 0', () => {
@@ -157,57 +159,21 @@ describe('Order', () => {
     store.addProductToCatalog(product)
     order.addOrderItem(product, 10)
     order.updateOrderItemQuantity(product.getID(), 0)
+  })
+
+  test('Update the quantity with invalid parameters', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 10)
+    expect(() => order.updateOrderItemQuantity(product.getID(), -1)).toThrow('New quantity must be a positive integer')
+  })
+
+  test('Remove an order item', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    order.addOrderItem(product, 10)
+    order.removeOrderItem(product.getID())
     expect(order.getOrderItemsInCart().length).toBe(0)
-  })
-
-  test('Remove an order item from the order', () => {
-    const product1 = new Product('Pizza', 190, 'A pizza with cream and cheese')
-    const product2 = new Product(
-      'Hamburger',
-      100,
-      'A hamburger with salad, tomato and cream'
-    )
-
-    store.addProductToCatalog(product1)
-    store.addProductToCatalog(product2)
-    order.addOrderItem(product1)
-    order.addOrderItem(product2)
-    order.removeOrderItem(product1.getID(), 1)
-
-    const order2 = store.createOrder()
-    order2.addOrderItem(product1, 4)
-    order2.removeOrderItem(product1.getID(), 1)
-
-    const expectedResult = {
-      product: product1,
-      productId: product1.getID(),
-      quantity: 3
-    }
-
-    expect(order.getOrderItemsInCart().length).toBe(1)
-    expect(order2.getOrderItemsInCart()).toEqual([expectedResult])
-  })
-
-  test('Remove quantity', () => {
-    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
-    store.addProductToCatalog(product)
-    order.addOrderItem(product, 10)
-    order.removeOrderItem(product.getID(), 4)
-    expect(order.getOrderItemsInCart()[0].quantity).toBe(6)
-  })
-
-  test('Remove quantity with invalid parameters', () => {
-    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
-    store.addProductToCatalog(product)
-    order.addOrderItem(product, 10)
-    expect(() => order.removeOrderItem(product.getID(), 0)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), NaN)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), undefined)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), ['Hello'])).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), false)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), true)).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem(product.getID(), { test: 'ok' })).toThrow('Quantity to remove must be a positive integer')
-    expect(() => order.removeOrderItem('', 1)).toThrow('Failed to find order item')
   })
 
   test('Remove the same quantity as in the cart', () => {

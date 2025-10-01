@@ -6,7 +6,7 @@ import { Invoice } from '../src/Invoice.js'
 import { Store } from '../src/Store.js'
 import { Product } from '../src/Product.js'
 
-describe('Order', () => {
+describe('Invoice', () => {
   const store = new Store('Test')
   const order = store.createOrder()
 

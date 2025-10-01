@@ -91,12 +91,13 @@ export class Order {
       )
     }
 
-    if (!this.findOrderItem(product.getID())) {
+    const productInCart = this.findOrderItem(product.getID())
+
+    if (productInCart) {
+      productInCart.quantity += quantity
+    } else {
       const orderItem = this.#createOrderItem(product, quantity)
       this.#orderItemsInCart.push(orderItem)
-    } else {
-      const productInCart = this.findOrderItem(product.getID())
-      productInCart.quantity += quantity
     }
   }
 
@@ -157,26 +158,10 @@ export class Order {
    * Remove a product from the order based on id.
    *
    * @param {number} productId - The product's id
-   * @param {number} quantityToRemove Quantity to remove
    */
-  removeOrderItem (productId, quantityToRemove) {
-    if (quantityToRemove <= 0 || !Number.isInteger(quantityToRemove)) {
-      throw new Error('Quantity to remove must be a positive integer')
-    }
-
-    const product = this.findOrderItem(productId)
-    if (!product) {
-      throw new Error('Failed to find order item')
-    }
-
-    const quantityInCart = product.quantity
-    if (quantityInCart - quantityToRemove <= 0) {
-      const index = this.findIndex(productId)
-      this.#orderItemsInCart.splice(index, 1)
-    } else {
-      const newQuantity = product.quantity - quantityToRemove
-      this.updateOrderItemQuantity(productId, newQuantity)
-    }
+  removeOrderItem (productId) {
+    const index = this.findIndex(productId)
+    this.#orderItemsInCart.splice(index, 1)
   }
 
   /**
@@ -187,20 +172,19 @@ export class Order {
    */
   updateOrderItemQuantity (productId, newQuantity) {
     if (!Number.isInteger(newQuantity) || newQuantity < 0) {
-      throw new Error('Quantity to remove must be a positive integer')
+      throw new Error('New quantity must be a positive integer')
     }
 
     if (newQuantity <= 0) {
-      const orderItem = this.findOrderItem(productId)
-      if (orderItem !== null) {
-        this.removeOrderItem(productId, orderItem.quantity)
-      }
+      this.removeOrderItem(productId)
       return
     }
 
     const orderItem = this.findOrderItem(productId)
-    if (orderItem !== null) {
+    if (orderItem) {
       orderItem.quantity = newQuantity
+    } else {
+      throw new Error('Failed to update the quantity')
     }
   }
 
