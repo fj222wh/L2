@@ -249,9 +249,9 @@ describe('Order', () => {
   })
 
   test('Change the status of the order to isActive = false', () => {
-    order.setStatus(false)
+    order.setOrderStatus(false)
     expect(order.isActiveOrder()).toBe(false)
-    expect(() => order.setStatus('hello')).toThrow('The parameter has to be a boolean')
+    expect(() => order.setOrderStatus('hello')).toThrow('The parameter has to be a boolean')
   })
 
   test('Clear an order', () => {

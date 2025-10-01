@@ -103,7 +103,6 @@ export class Store {
     const order = this.#orders.find((order) => {
       return order.getOrderNumber() === orderNumber
     })
-
     if (!order) {
       throw new Error('Failed to find order')
     }

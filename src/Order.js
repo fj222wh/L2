@@ -62,7 +62,7 @@ export class Order {
    *
    * @param {boolean} boolean True or false value
    */
-  setStatus (boolean) {
+  setOrderStatus (boolean) {
     if (typeof boolean !== 'boolean') {
       throw new TypeError('The parameter has to be a boolean')
     }
@@ -190,7 +190,7 @@ export class Order {
       throw new Error('Quantity to remove must be a positive integer')
     }
 
-    if (newQuantity === 0) {
+    if (newQuantity <= 0) {
       const orderItem = this.findOrderItem(productId)
       if (orderItem !== null) {
         this.removeOrderItem(productId, orderItem.quantity)
