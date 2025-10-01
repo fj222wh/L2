@@ -176,6 +176,15 @@ describe('Order', () => {
     expect(order.getOrderItemsInCart().length).toBe(0)
   })
 
+  test('Remove an order item with invalid productId', () => {
+    const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
+    store.addProductToCatalog(product)
+    console.log(product.getID())
+    expect(() => order.removeOrderItem(40)).toThrow('Failed to find index for the orderItem')
+    expect(() => order.removeOrderItem(40)).toThrow('Failed to find index for the orderItem')
+    expect(() => order.removeOrderItem(product.getID())).toThrow('Failed to find index for the orderItem')
+  })
+
   test('Remove the same quantity as in the cart', () => {
     const product = new Product('Pizza', 120, 'A pizza with cream and cheese')
     store.addProductToCatalog(product)
