@@ -119,17 +119,24 @@ import Order from '/src/Order.js'
 This module can be used on the backend in your project to create and handle the store, products, productcatalog och orders in an object oriented way. You only need to follow the [installation guide](#installation) and start importing the classes.
 
 ```js
-  const store = new Store('Restaurant') // Creates the store
-  const order = store.createOrder() // Create an order
-  const sushi = new Product('Salmon Nigiri Sushi Set',
-    19.99, '10 pieces of fresh salmon nigiri sushi, served with wasabi and ginger.') // Create a product
-  store.addProductToCatalog(sushi) // Add the product to the store's product catalog
+import { Store } from './Store.js'
+import { Product } from './Product.js'
+import { InvoiceView } from './InvoiceView.js'
+import { ModelInvoice } from './ModelInvoice.js'
 
-  order.addOrderItem(sushi, 2) // Add the items to the order
+const store = new Store('Restaurant') // Creates the store
+const order = store.createOrder() // Create an order
+const sushi = new Product('Salmon Nigiri Sushi Set',
+  19.99, '10 pieces of fresh salmon nigiri sushi, served with wasabi and ginger.') // Create a product
+store.addProductToCatalog(sushi) // Add the product to the store's product catalog
 
-  const sum = order.calculateTotalPrice() // Calculates the total price
+order.addOrderItem(sushi, 2) // Add the items to the order
 
-  const invoice = new Invoice(order, 'Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
+const modelInvoice = new ModelInvoice(order, 'Filippa Johansson', 'fj222wh@student.lnu.se', 'SEK')
+
+const invoiceView = new InvoiceView(modelInvoice) // Create the view
+const htmlInvoice = invoiceView.createInvoice() // This is the html which can be used in your view
+
 ```
 
 ## License
